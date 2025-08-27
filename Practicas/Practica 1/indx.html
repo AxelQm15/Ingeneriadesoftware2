@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TimeLess — Merch & Music</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Stripe (una sola vez) -->
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <style>
+    :root{
+      --tl-bg:#000;
+      --tl-text:#fff;
+      --tl-muted:#aaa;
+      --tl-card:#111;
+      --tl-border:#333;
+      --radius:16px;
+    }
+    body{ background:var(--tl-bg); color:var(--tl-text); font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; }
+
+    /* NAV */
+    .navbar{ background:#000; border-bottom:1px solid var(--tl-border); }
+    .brand-mark{ display:flex; align-items:center; gap:.8rem; font-family:"Space Grotesk",sans-serif; }
+    .brand-mark img{ width:64px; height:64px; object-fit:contain; }
+    .brand-name{
+      font-weight:800; color:#fff !important; letter-spacing:.4px;
+      font-size:clamp(1.5rem,3vw,2.25rem); line-height:1;
+    }
+
+    /* HERO */
+    .hero{ padding:80px 0; text-align:center; border-bottom:1px solid var(--tl-border); }
+    .hero h1{ font-size:clamp(2rem,5vw,3.2rem); font-weight:700; }
+    .hero p{ color:var(--tl-muted); max-width:620px; margin:0 auto; }
+    .cta-btn{ border:1px solid #fff; color:#fff; padding:.7rem 1.3rem; border-radius:999px; text-decoration:none; font-weight:600; display:inline-block; transition:.2s; }
+    .cta-btn:hover{ background:#fff; color:#000; }
+
+    /* GRID / CARDS */
+    .products-grid .col{ display:flex; }
+    .card{
+      background:var(--tl-card); border:1px solid var(--tl-border);
+      border-radius:var(--radius); padding:1.25rem; width:100%;
+      /* Centramos el contenido (Stripe) perfectamente */
+      display:flex; align-items:center; justify-content:center;
+    }
+    /* El componente de Stripe ocupa ancho máximo y queda centrado */
+    stripe-buy-button{
+      display:block; width:100%; max-width:360px; margin:0 auto;
+    }
+
+    /* Ajustes móviles */
+    @media (max-width: 576px){
+      .brand-mark img{ width:56px; height:56px; }
+      stripe-buy-button{ max-width:100%; }
+      .card{ padding:1rem; }
+    }
+
+    /* FOOTER */
+    footer{ border-top:1px solid var(--tl-border); color:var(--tl-muted); padding:40px 0; }
+    .footer-link{ color:var(--tl-muted); text-decoration:none; }
+    .footer-link:hover{ color:#fff; text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand brand-mark" href="#">
+        <img src="simpleTL.png" alt="TimeLess Logo"/>
+        <span class="brand-name">TimeLess</span>
+      </a>
+      <div class="d-flex gap-3">
+        <a class="nav-link text-white" href="#productos">Productos</a>
+        <a class="nav-link text-white" href="#">Colecciones</a>
+        <a class="nav-link text-white" href="#">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <h1>Merch de artistas & cultura musical</h1>
+      <p class="mt-3">Todo monocromo. Todo a tiempo.</p>
+      <a href="#productos" class="cta-btn mt-4">Explorar tienda</a>
+    </div>
+  </header>
+
+  <!-- PRODUCTOS -->
+  <main id="productos" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Colecciones destacadas</h2>
+
+      <!-- Grilla responsiva: 1 col (xs), 2 col (sm), 4 col (lg) -->
+      <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-4 products-grid">
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMCiPPK4icIASI8sPY9CxH"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMrNPPK4icIASIOS8N7FQV"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMmyPPK4icIASIIyR6fIqK"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMjYPPK4icIASILncqNIxf"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMoFPPK4icIASIBtL6ZMXX"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMpmPPK4icIASIThC7KM9q"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMzoPPK4icIASIEM3lHzoQ"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1RxMyuPPK4icIASIWvWTc3tP"
+              publishable-key="pk_test_51RxLdaPPK4icIASIOLAAnVZfQO8HWcpKCsRV5Um5IRikUPhzwF9bL1pnpRMTFLkZ2RXVO28Unhod7XggRnu2Ni3X00NyPDId9J">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container text-center">
+      <img src="simpleTL.png" alt="TimeLess Logo" width="40" class="mb-2"/>
+      <p>&copy; <span id="y"></span> TimeLess — Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
