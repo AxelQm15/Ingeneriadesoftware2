@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANDÉN | Tienda</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{--blk:#0b0b0b; --w:#fff; --muted:#cfcfd4; --accent:#1a1a4a; --chip-bg:#f4edf7;}
+    body{font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial;}
+
+    /* Header */
+    .topbar{background:var(--blk); color:var(--w); padding:.75rem 0; position:sticky; top:0; z-index:1050; backdrop-filter:saturate(140%) blur(6px);}
+    .topbar.scrolled{box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .brand{font-size:clamp(28px,5vw,64px); font-weight:900; letter-spacing:.03em;}
+    .main-nav a{color:#eaeaea; text-decoration:none; font-weight:700; letter-spacing:.04em; padding:.5rem .9rem; display:inline-block}
+    .main-nav a:hover,.main-nav a.active{color:#fff; text-decoration:underline}
+    .auth input{background:#111; border:2px solid #fff; color:#fff; font-weight:700; text-transform:uppercase; padding:.45rem .8rem; border-radius:.25rem; width:100%}
+    .search-wrap{position:relative}
+    .search-wrap input{background:#111; border:2px solid #fff; color:#fff; padding:.45rem 2.4rem .45rem .8rem; border-radius:999px; width:100%}
+    .search-wrap .bi-search{position:absolute; right:.7rem; top:50%; transform:translateY(-50%); font-size:1.1rem; color:#fff}
+    .cart-btn{color:#fff; font-size:1.4rem; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:.4rem; border:2px solid #fff; position:relative}
+    .cart-badge{position:absolute; top:-6px; right:-6px; background:var(--accent); color:#fff; font-size:.7rem; line-height:1; padding:.25rem .35rem; border-radius:999px; min-width:18px; text-align:center; box-shadow:0 0 0 2px #000}
+
+    /* Full-bleed hero */
+    .hero{ margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+    .hero .carousel{ width:100vw; aspect-ratio:21/9; }
+    @media (max-width:767.98px){ .hero .carousel{ aspect-ratio:4/5; } }
+    .hero .carousel-inner, .hero .carousel-item{ height:100%; }
+    .hero .carousel-item img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; border-radius:0; }
+
+    /* Carrusel: progreso */
+    #heroCarousel{position:relative}
+    .carousel-progress{position:absolute; left:0; right:0; top:0; height:4px; background:rgba(255,255,255,.25); overflow:hidden; z-index:2}
+    .carousel-progress .bar{width:0%; height:100%; background:linear-gradient(90deg,var(--accent),#6b8cff)}
+
+    /* Opcional: evitar cortes de banners con mucho texto en móvil */
+    @media (max-width:767.98px){
+      .hero .carousel-item img.contain-mobile{ object-fit:contain; background:#000; }
+    }
+    .hero .carousel-item img.pos-left  { object-position:left center; }
+    .hero .carousel-item img.pos-right { object-position:right center; }
+    .hero .carousel-item img.pos-top   { object-position:center top; }
+    .hero .carousel-item img.pos-bottom{ object-position:center bottom; }
+
+    /* Mega-menú */
+    .has-mega { position: static; }
+    .has-mega .chev{ margin-left:.25rem; transition:transform .2s }
+    .mega-menu{
+      position:absolute; left:0; right:0; top:100%;
+      background:#fff; color:#111;
+      border-top:3px solid var(--accent);
+      box-shadow:0 24px 60px rgba(0,0,0,.25);
+      opacity:0; transform:translateY(8px); visibility:hidden;
+      transition:opacity .25s ease, transform .25s ease, visibility .25s;
+      z-index:1040;
+    }
+    .mega-menu .container{ padding:1rem 1rem; }
+    .mega-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.25rem; }
+    .mega-title{ font-weight:800; font-size:.95rem; letter-spacing:.03em; margin-bottom:.5rem; }
+    .mega-list{ list-style:none; padding:0; margin:0; }
+    .mega-list a{ display:block; color:#222; text-decoration:none; padding:.35rem 0; }
+    .mega-list a:hover{ color:var(--accent); text-decoration:underline; }
+    .mega-banner{ grid-column:span 1; border-radius:.6rem; overflow:hidden; min-height:160px; background:#f6f6f8; }
+    .mega-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
+    @media (min-width:992px){
+      .has-mega:hover .mega-menu, .has-mega:focus-within .mega-menu{ opacity:1; transform:none; visibility:visible; }
+      .has-mega:hover .chev{ transform:rotate(180deg); }
+    }
+    @media (max-width:991.98px){
+      .mega-menu{ position:static; border:0; box-shadow:none; background:#0f0f12; color:#e5e7eb; opacity:1; transform:none; visibility:visible; display:none; }
+      .has-mega.open .mega-menu{ display:block; }
+      .mega-list a{ color:#e5e7eb; }
+      .mega-list a:hover{ color:#fff; }
+      .mega-grid{ grid-template-columns:1fr 1fr; }
+      .mega-banner{ display:none; }
+      .has-mega.open .chev{ transform:rotate(180deg); }
+    }
+
+    /* Círculos */
+    .circle{width:240px; aspect-ratio:1/1; border-radius:50%; overflow:hidden; background:#f4edf7; display:grid; place-items:center; padding:0;}
+    .circle img{ width:100%; height:100%; object-fit:cover; object-position:center;}
+
+    /* Cards productos */
+    .p-card{border-radius:.7rem; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease}
+    .p-card:hover{transform:translateY(-4px); box-shadow:0 10px 24px rgba(0,0,0,.12)}
+    .p-card img{height:220px; object-fit:cover}
+    .price{font-weight:800; color:#474848}
+
+    /* Logos marcas */
+    .logo-band img{height:42px; opacity:.8; filter:grayscale(100%); transition:opacity .2s, filter .2s}
+    .logo-band img:hover{opacity:1; filter:none}
+
+    /* Banner */
+    .promo-banner{background:#111 url('https://i.pinimg.com/1200x/51/ea/6e/51ea6e7de0889a2639e41e076386591d.jpg') center/cover no-repeat; border-radius:.6rem}
+    .promo-overlay{background:rgba(0,0,0,.55); border-radius:.6rem}
+
+    /* Testimonials */
+    .quote{background:#f7f7fb; border-radius:.8rem; padding:1.25rem}
+    footer{background:#0f0f12; color:#d7d7db}
+    footer a{color:#d7d7db; text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    /* ====== RESPONSIVE, SIN CAMBIAR TAMAÑOS ====== */
+    html { -webkit-text-size-adjust: 100%; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    @media (max-width: 991.98px){
+      .topbar .row { row-gap: .5rem; }
+      .main-nav { overflow-x: auto; white-space: nowrap; scrollbar-width: thin; }
+      .main-nav a { padding: .5rem .75rem; }
+      .cart-btn { flex: 0 0 auto; }
+    }
+    @media (max-width: 575.98px){
+      .auth, .search-wrap { width: 100% !important; }
+      .topbar .d-flex { width: 100%; }
+    }
+    .carousel-control-prev, .carousel-control-next { width: auto; }
+    @media (max-width: 575.98px){
+      .carousel-control-prev { left: .5rem; }
+      .carousel-control-next { right: .5rem; }
+    }
+
+    /* CÍRCULOS: scroll horizontal en móvil sin cambiar diámetro */
+    .cat-row { align-items: stretch; }
+    @media (max-width: 767.98px){
+      .cat-row {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: .5rem; gap: 1rem !important;
+        -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+      }
+      .cat-row > [class*="col-"] { flex: 0 0 auto; }
+      .cat-row::-webkit-scrollbar { height: 8px; }
+      .cat-row::-webkit-scrollbar-thumb { background: #ddd; border-radius: 999px; }
+    }
+
+    @media (max-width: 575.98px){
+      .p-card img { height: 200px; object-fit: cover; }
+    }
+    .logo-band img { max-width: 180px; height: 42px; object-fit: contain; }
+    @media (max-width: 767.98px){
+      footer .row > div { margin-bottom: 1rem; }
+    }
+
+    /* ===== Colores de botones (override fuerte, sin cambiar tamaños) ===== */
+    :root { --accent: #1a1a4a; }
+    .btn-primary, .btn-primary:focus, .btn-primary:active{
+      background-color: var(--accent) !important; border-color: var(--accent) !important; color:#fff !important;
+    }
+    .btn-primary:hover{ background-color:#14204f !important; border-color:#14204f !important; color:#fff !important; }
+    .btn-outline-dark{ color:var(--accent) !important; border-color:var(--accent) !important; background-color:transparent !important; }
+    .btn-outline-dark:hover, .btn-outline-dark:focus, .btn-outline-dark:active{
+      background-color:var(--accent) !important; border-color:var(--accent) !important; color:#fff !important;
+    }
+    .promo-overlay .btn-light{ background-color:var(--accent) !important; border-color:var(--accent) !important; color:#fff !important; }
+    .promo-overlay .btn-light:hover{ background-color:#000 !important; border-color:#000 !important; }
+
+    /* Scroll reveal */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Botón volver arriba + widget tema */
+    .to-top{position:fixed; right:18px; bottom:18px; width:44px; height:44px; border:none; border-radius:50%; display:none; align-items:center; justify-content:center; background:var(--accent); color:#fff; box-shadow:0 10px 24px rgba(0,0,0,.2); z-index:1050}
+    .to-top.show{display:flex}
+
+    .theme-widget{position:fixed; left:18px; bottom:18px; z-index:1050; display:flex; gap:.5rem; align-items:center; background:#fff; color:#111; border-radius:999px; padding:.35rem .55rem; box-shadow:0 10px 30px rgba(0,0,0,.15)}
+    .theme-widget .theme-colors button{width:22px; height:22px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.15) inset; cursor:pointer}
+    .theme-toggle{border:none; background:#111; color:#fff; border-radius:999px; padding:.35rem .6rem; cursor:pointer}
+
+    /* Modo oscuro suave */
+    body.dark{--page-bg:#0f1115; --text:#f3f4f6; background:var(--page-bg); color:var(--text)}
+    body.dark .bg-light{background:#11161b !important}
+    body.dark .card, body.dark .quote{background:#11161b; color:var(--text)}
+    body.dark .section-title{color:var(--text)}
+    body.dark .theme-widget{background:#0e0f13; color:#eee}
+    body.dark .theme-toggle{background:#222}
+
+    /* --- PRIORIDAD DE CAPAS CORRECTA --- */
+/* 1) El panel del carrito arriba de todo */
+.offcanvas{ z-index: 1100 !important; }          /* default BS es 1045 */
+/* 2) El backdrop justo debajo del panel */
+.offcanvas-backdrop{ z-index: 1090 !important; } /* default BS es 1040 */
+/* 3) El header por debajo del backdrop/panel */
+.topbar{ position: sticky; top:0; z-index: 1020 !important; } /* <= 1020/1030 está bien */
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="container-fluid px-3 px-md-4">
+      <div class="row g-3 align-items-center">
+        <div class="col-12 col-lg-3 d-flex align-items-center">
+          <div class="brand me-3">ANDÉN</div>
+        </div>
+        <div class="col-12 col-lg-5">
+          <nav class="main-nav d-flex gap-1 flex-wrap" aria-label="Navegación principal">
+            <a class="active" href="index.html">INICIO</a>
+
+            <!-- CATEGORÍAS con mega-menú -->
+            <div class="has-mega d-inline-block position-static">
+              <a href="#" class="categories-toggle" aria-expanded="false" aria-haspopup="true">
+                CATEGORÍAS <i class="bi bi-chevron-down chev"></i>
+              </a>
+
+              <div class="mega-menu" role="menu" aria-label="Categorías">
+                <div class="container">
+                  <div class="mega-grid">
+                    <div>
+                      <div class="mega-title">Hombre</div>
+                      <ul class="mega-list">
+                        <li><a href="hombre.html#playeras">Playeras</a></li>
+                        <li><a href="hombre.html#sudaderas">Hoodies</a></li>
+                        <li><a href="hombre.html#denim">Denim</a></li>
+                        <li><a href="hombre.html#perfumes">Fragancias</a></li>
+
+                      </ul>
+                    </div>
+                    <div>
+                      <div class="mega-title">Mujer</div>
+                      <ul class="mega-list">
+                        <li><a href="mujer.html#vestidos">Vestidos</a></li>
+                        <li><a href="mujer.html#tops">Tops</a></li>
+                        <li><a href="mujer.html#denim">Denim</a></li>
+                        <li><a href="mujer.html#bolsas">Bolsas</a></li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div class="mega-title">Calzado</div>
+                      <ul class="mega-list">
+                        <li><a href="zapatos.html#sneakers">Sneakers</a></li>
+                        <li><a href="zapatos.html#running">Running</a></li>
+                        <li><a href="zapatos.html#casual">Casual</a></li>
+                        <li><a href="zapatos.html#sandalias">Sandalias</a></li>
+                      </ul>
+                    </div>
+                    <div class="mega-banner">
+                      <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto:best,fl_lossy/if_w_gt_768,w_768/global_teamgeist_originals_fw25_launch_catlp_hp_banner_hero_2_d_e6c0276502.jpg" alt="Teamgeist">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="#">NUEVOS</a>
+          </nav>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="d-flex gap-2 justify-content-lg-end align-items-center flex-wrap">
+            <div class="auth" style="width:140px;"><input placeholder="USUARIO" /></div>
+            <div class="auth" style="width:160px;"><input type="password" placeholder="CONTRASEÑA" /></div>
+            <div class="search-wrap" style="width:200px;">
+              <input placeholder="Buscar..." />
+              <i class="bi bi-search"></i>
+            </div>
+            <a class="cart-btn position-relative" href="#">
+              <i class="bi bi-cart3"></i>
+              <span id="cartCount" class="cart-badge d-none">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero position-relative mt-2">
+    <div class="container-fluid px-0">
+      <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4200">
+        <!-- Barra de progreso -->
+        <div class="carousel-progress"><div class="bar"></div></div>
+
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <img src="https://perfumedubai.com/cdn/shop/files/Valentino_Uomo_Intense_EDP_100ml.webp?v=1726659621"
+                 alt="Colección perfumes" loading="eager" fetchpriority="high" referrerpolicy="no-referrer">
+          </div>
+          <!-- Slide 2 (mucho texto: no recortes en móvil) -->
+          <div class="carousel-item">
+            <img src="https://bostonglobe-prod.cdn.arcpublishing.com/resizer/v2/YFQYIYR2HFMRUBBZRAJH4Q67RU.jpg?auth=196990eb7075807d0907b3b1b99b6e80123e725ba8c4d4f5bf7cf333b0e939a5&width=1440"
+                 alt="American Eagle — Sydney Sweeney" class="contain-mobile pos-right" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto:best,fl_lossy/if_w_gt_1920,w_1920/global_teamgeist_originals_fw25_launch_catlp_hp_banner_hero_2_d_e6c0276502.jpg"
+                 alt="Adidas Teamgeist banner" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Anterior">
+          <span class="nav-pill">&lt;</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Siguiente">
+          <span class="nav-pill">&gt;</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="py-4 border-top border-bottom">
+    <div class="container">
+      <div class="row text-center g-3">
+        <div class="col-6 col-md-3"><i class="bi bi-truck fs-3 d-block"></i><strong>Envío gratis</strong><br><small>en compras desde $999</small></div>
+        <div class="col-6 col-md-3"><i class="bi bi-arrow-return-left fs-3 d-block"></i><strong>Devoluciones 30 días</strong><br><small>fáciles y rápidas</small></div>
+        <div class="col-6 col-md-3"><i class="bi bi-shield-check fs-3 d-block"></i><strong>Pago seguro</strong><br><small>SSL / Tarjeta / OXXO</small></div>
+        <div class="col-6 col-md-3"><i class="bi bi-headset fs-3 d-block"></i><strong>Soporte 24/7</strong><br><small>WhatsApp y correo</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS CÍRCULOS -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4 justify-content-center cat-row">
+        <div class="col-6 col-md-3">
+          <a class="circle-cat d-block text-dark text-decoration-none" href="zapatos.html">
+            <div class="circle"><img src="https://cdn-3.expansion.mx/dims4/default/0ff5db2/2147483647/strip/true/crop/3856x3592+0+0/resize/600x559!/format/webp/quality/60/?url=https%3A%2F%2Fcdn-3.expansion.mx%2F12%2F8f%2F1a252f3c4513a07ce1bf34ccd3e5%2Fa08805-d.png" alt="Sneakers" loading="lazy" decoding="async"></div>
+            <h5 class="mt-2 fw-bold">Sneakers</h5>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a class="circle-cat d-block text-dark text-decoration-none" href="#">
+            <div class="circle"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxa1b5WmXsWnrU7Xou_sXyyghFHP89HVzv5SXeMj8sttAWTgXaVZlQSnQKw_TUyoZfEf0&usqp=CAU" alt="Deportivos" loading="lazy" decoding="async"></div>
+            <h5 class="mt-2 fw-bold">Deportivos</h5>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a class="circle-cat d-block text-dark text-decoration-none" href="hombre.html">
+            <div class="circle"><img src="https://images.stockx.com/images/adidas-x-Oasis-Tour-Jacquard-Jersey-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1750856577" alt="Ropa" loading="lazy" decoding="async"></div>
+            <h5 class="mt-2 fw-bold">Ropa</h5>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a class="circle-cat d-block text-dark text-decoration-none" href="#">
+            <div class="circle"><img src="https://produ-bucket-media.s3.amazonaws.com/product-channel/201057/2025/7/20/1b254d69404db5e26dc37d9c90f20b9c.jpg?scale=700&qlty=80" alt="Accesorios" loading="lazy" decoding="async"></div>
+            <h5 class="mt-2 fw-bold">Accesorios y más</h5>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLECCIONES -->
+  <section class="py-5 pt-0">
+    <div class="container">
+      <h3 class="section-title mb-4">Explora por colección</h3>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <a class="text-decoration-none" href="mujer.html">
+            <div class="p-card card text-bg-dark">
+              <img src="https://i.pinimg.com/1200x/cb/f1/11/cbf11182f82b6b922574734d28485c9c.jpg" class="card-img" alt="Mujer" loading="lazy" decoding="async"/>
+              <div class="card-img-overlay d-flex justify-content-between align-items-end">
+                <h4 class="m-0">Mujer</h4><span class="btn btn-light btn-sm">Ver más</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6">
+          <a class="text-decoration-none" href="hombre.html">
+            <div class="p-card card text-bg-dark">
+              <img src="https://i.pinimg.com/1200x/4e/f1/6f/4ef16fe0fea3f5d8f2eff1a6d289e31f.jpg" class="card-img" alt="Hombre" loading="lazy" decoding="async"/>
+              <div class="card-img-overlay d-flex justify-content-between align-items-end">
+                <h4 class="m-0">Hombre</h4><span class="btn btn-light btn-sm">Ver más</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULARES -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="section-title m-0">Populares ahora</h3>
+        <a href="zapatos.html" class="btn btn-outline-dark btn-sm">Ver todos</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-3">
+          <div class="card p-card">
+            <img src="https://nb.scene7.com/is/image/NB/mr530sg_nb_02_i?wid=880&hei=880&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult" class="card-img-top" alt="Sneaker 530" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h6 class="mb-1">530</h6>
+              <div class="price">$2,699 MXN</div>
+              <button class="btn btn-primary btn-sm mt-2 add-cart" data-name="Sneaker Beige" data-price="1399">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card p-card">
+            <img src="https://i.pinimg.com/736x/59/fa/c7/59fac7d9e7e769e6ff2a7af64e93af64.jpg" class="card-img-top" alt="Negroni Plse" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h6 class="mb-1">Negroni Please</h6>
+              <div class="price">$799 MXN</div>
+              <button class="btn btn-primary btn-sm mt-2 add-cart" data-name="Sneaker Black" data-price="1499">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card p-card">
+            <img src="https://disfragancias.com/cdn/shop/files/Givenchy_Gentleman_Society_Eau_de_Parfum_Ambree_1c91630e-3d99-474c-8553-0adc61e34c58.png?v=1741005214" class="card-img-top" alt="Short Dryfit" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h6 class="mb-1">Givenchy Gentleman Society Eau de Parfum Ambrée</h6>
+              <div class="price">7,299 MXN</div>
+              <button class="btn btn-primary btn-sm mt-2 add-cart" data-name=" Givenchy Gentleman Society Eau de Parfum Ambrée" data-price="499">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card p-card">
+            <img src="https://cdn.media.amplience.net/i/Marc_Jacobs/MJI_M0017025_263_F8F8F8_4-5_MAIN?w=500&qlt=100&img404=NOIMAGEMEDIUM_1-1" class="card-img-top" alt="Playera Tech" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h6 class="mb-1">The Tote Bag</h6>
+              <div class="price">$5,568 MXN</div>
+              <button class="btn btn-primary btn-sm mt-2 add-cart" data-name="Playera Tech" data-price="349">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER PROMO -->
+  <section class="py-5">
+    <div class="container">
+      <div class="promo-banner p-4 p-md-5">
+        <div class="promo-overlay p-4 p-md-5 d-flex align-items-center">
+          <div class="text-white">
+            <h2 class="fw-bold">-30% en Running Week</h2>
+            <p class="mb-3">Sólo esta semana en selección de tenis y ropa deportiva.</p>
+            <a href="zapatos.html" class="btn btn-light btn-lg">Comprar ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS MARCAS -->
+  <section class="py-4 border-top border-bottom">
+    <div class="container logo-band">
+      <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt="Nike" loading="lazy" decoding="async">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" loading="lazy" decoding="async">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/On-cloud-logo-white-background.svg/800px-On-cloud-logo-white-background.svg.png" alt="OnCloud" loading="lazy" decoding="async">
+        <img src="https://1000marcas.net/wp-content/uploads/2019/12/logo-Reebok.png" alt="Reebok" loading="lazy" decoding="async">
+        <img src="https://cdn.freebiesupply.com/logos/large/2x/asics-6-logo-png-transparent.png" alt="Asics" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="py-5">
+    <div class="container">
+      <h3 class="section-title mb-4">Lo que dicen nuestros clientes</h3>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="quote h-100"><i class="bi bi-quote"></i> Llegó rapidísimo y la talla fue perfecta. <strong>— Ana R.</strong></div></div>
+        <div class="col-md-4"><div class="quote h-100"><i class="bi bi-quote"></i> Excelente calidad por el precio, repetiré compra. <strong>— Luis M.</strong></div></div>
+        <div class="col-md-4"><div class="quote h-100"><i class="bi bi-quote"></i> Me encantó el soporte por Whats, resolvieron todo. <strong>— Camila P.</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG / REVISTA -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="section-title m-0">De nuestra revista</h3>
+        <a href="#" class="btn btn-outline-dark btn-sm">Ver artículos</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <a class="text-decoration-none text-dark" href="#">
+            <div class="card p-card">
+              <img src="https://images.unsplash.com/photo-1662137262938-106b823ccb21?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0" class="card-img-top" alt="Guía de tallas" loading="lazy" decoding="async">
+              <div class="card-body">
+                <h6 class="fw-bold">Guía definitiva de tallas</h6>
+                <small class="text-muted">5 min de lectura</small>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a class="text-decoration-none text-dark" href="#">
+            <div class="card p-card">
+              <img src="https://images.unsplash.com/photo-1579664531470-ac357f8f8e2b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0" class="card-img-top" alt="Cuidar ropa" loading="lazy" decoding="async">
+              <div class="card-body">
+                <h6 class="fw-bold">Cómo cuidar tu ropa y hacerla durar</h6>
+                <small class="text-muted">3 min de lectura</small>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a class="text-decoration-none text-dark" href="#">
+            <div class="card p-card">
+              <img src="https://i.pinimg.com/736x/94/3a/a9/943aa9e4153bbe2acfaaa00afc6f7285.jpg" class="card-img-top" alt="Tendencias" loading="lazy" decoding="async">
+              <div class="card-body">
+                <h6 class="fw-bold">Tendencias 2025: colores y materiales clave</h6>
+                <small class="text-muted">4 min de lectura</small>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <h3 class="section-title">Suscríbete y recibe 10% OFF</h3>
+          <p class="text-muted m-0">Promos, lanzamientos y más directo a tu correo.</p>
+        </div>
+        <div class="col-md-6">
+          <form class="d-flex gap-2">
+            <input type="email" class="form-control form-control-lg" placeholder="tu@email.com" required>
+            <button class="btn btn-dark btn-lg" type="submit">Unirme</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pt-5">
+    <div class="container pb-4">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5 class="fw-bold">ANDÉN</h5>
+          <p class="text-white-50">Moda para todos los días</p>
+        </div>
+        <div class="col-md-2">
+          <h6 class="fw-bold">Tienda</h6>
+          <ul class="list-unstyled">
+            <li><a href="hombre.html">Hombre</a></li>
+            <li><a href="mujer.html">Mujer</a></li>
+            <li><a href="zapatos.html">Zapatos</a></li>
+            <li><a href="#">Accesorios</a></li>
+          </ul>
+        </div> 
+        <div class="col-md-3">
+          <h6 class="fw-bold">Soporte</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Envíos</a></li>
+            <li><a href="#">Devoluciones</a></li>
+            <li><a href="#">Garantías</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="fw-bold">Síguenos</h6>
+          <div class="d-flex gap-3">
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary mt-4">
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <small class="text-white-50">© 2025 ANDÉN. Todos los derechos reservados.</small>
+        <small class="text-white-50"><a href="#">Privacidad</a> · <a href="#">Términos</a></small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast carrito -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+    <div id="cartToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Producto agregado al carrito ✅</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Widgets UX -->
+  <div class="theme-widget" role="group" aria-label="Personalización">
+    <div class="theme-colors">
+      <button data-accent="#1a1a4a" title="Índigo" style="background:#1a1a4a"></button>
+      <button data-accent="#b91c1c" title="Rojo"   style="background:#b91c1c"></button>
+      <button data-accent="#0d9488" title="Verde"  style="background:#0d9488"></button>
+      <button data-accent="#b45309" title="Oro"    style="background:#b45309"></button>
+    </div>
+    <button id="toggleTheme" class="theme-toggle" title="Modo claro/oscuro">
+      <i class="bi bi-moon-stars"></i>
+    </button>
+  </div>
+
+  <button id="toTop" class="to-top" aria-label="Volver arriba">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Tu JS externo -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

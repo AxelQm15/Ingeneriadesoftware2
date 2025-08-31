@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANDÉN | Hombre</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+  :root{
+  --blk:#0b0b0b; --w:#fff; --accent:#000000;
+  --topbar-h: 82px;                 /* alto visual del header (JS lo puede ajustar si quieres) */
+}
+
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+
+/* ===== HEADER FIJO, COMPACTO Y LÍMPIO ===== */
+.topbar{
+  position:fixed; top:0; left:0; right:0;
+  z-index:1025 !important;
+  background:rgba(11,11,11,.94);
+  color:var(--w);
+  padding:.6rem 0;                 /* más compacto sin cambiar tamaños de tipografías */
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:saturate(1.05) blur(6px);
+}
+.topbar.scrolled{ box-shadow:0 10px 28px rgba(0,0,0,.35); }
+
+/* Deja espacio bajo el header fijo (no tapa el contenido) */
+html{ scroll-padding-top: calc(var(--topbar-h) + 10px); }
+body{ padding-top: var(--topbar-h); }
+
+.brand{
+  font-size:clamp(28px,4.2vw,56px);
+  font-weight:900; letter-spacing:.02em; line-height:1;
+}
+
+/* ===== NAV PRINCIPAL ===== */
+.main-nav{ position:relative }
+.main-nav a{
+  color:#cfcfd4; text-decoration:none; font-weight:800;
+  letter-spacing:.035em; padding:.4rem .8rem; display:inline-block; text-transform:uppercase;
+}
+.main-nav a:hover{ color:#fff; }
+.main-nav a.active{
+  color:#fff; position:relative;
+}
+.main-nav a.active::after{
+  content:""; position:absolute; left:.6rem; right:.6rem; bottom:-8px;
+  height:2px; background:#fff; border-radius:999px; opacity:.9;
+}
+
+/* ===== BUSCADOR / CARRITO ===== */
+.search-wrap{position:relative}
+.search-wrap input{
+  background:#111; border:2px solid rgba(255,255,255,.75);
+  color:#fff; padding:.45rem 2.2rem .45rem .85rem; border-radius:999px; width:100%;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.search-wrap input:focus{
+  outline:0; box-shadow:0 0 0 4px rgba(255,255,255,.12); border-color:#fff;
+}
+.search-wrap .bi-search{position:absolute; right:.7rem; top:50%; transform:translateY(-50%); color:#fff}
+
+.cart-btn{
+  color:#fff; font-size:1.4rem; display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:.5rem; border:2px solid #fff; position:relative
+}
+.cart-badge{
+  position:absolute; top:-6px; right:-6px; background:var(--accent); color:#fff;
+  font-size:.7rem; padding:.25rem .35rem; border-radius:999px; min-width:18px; text-align:center; box-shadow:0 0 0 2px #000
+}
+
+/* ===== MEGA MENÚ bajo “CATEGORÍAS” (más limpio y legible) ===== */
+.has-mega{ position:relative; }
+.categories-toggle{ display:inline-flex; align-items:center; gap:.25rem; }
+.categories-toggle .chev{ transition:transform .15s ease; }
+
+.mega-menu{
+  position:absolute; inset:auto auto auto 0;   /* abre pegado al link */
+  top:calc(100% + 10px);
+  background:#0f0f10; color:#fff;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:.75rem;
+  padding:1rem 1rem 1.1rem;
+  box-shadow:0 22px 48px rgba(0,0,0,.45);
+  min-width:700px;
+  display:none;
+}
+.has-mega:hover .mega-menu{ display:block; }
+.has-mega:hover .chev{ transform:rotate(180deg); }
+.mega-menu h6{ font-weight:900; letter-spacing:.02em; margin-bottom:.35rem; }
+.mega-menu a{ color:#eaeaea; }
+.mega-menu a:hover{ color:#fff; text-decoration:underline; }
+
+/* Ajuste de la imagen de promo del mega-menu */
+.mega-menu img{ border-radius:.5rem; height:140px; object-fit:cover; }
+
+/* ===== TARJETAS DE PRODUCTO (sin cambiar tamaño) ===== */
+.p-card{border-radius:.9rem; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease}
+.p-card:hover{transform:translateY(-4px); box-shadow:0 12px 26px rgba(0,0,0,.14)}
+.p-card img{height:240px; object-fit:cover}
+
+/* Botón primario coherente con la marca */
+.btn-primary{background:var(--accent)!important; border-color:var(--accent)!important}
+.btn-primary:hover{background:#000!important; border-color:#000!important}
+
+/* Footer igual que antes */
+footer{background:#0f0f12; color:#d7d7db}
+footer a{color:#d7d7db; text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ===== CAPAS CORRECTAS CON CARRITO ===== */
+.offcanvas{ z-index:1100 !important; }
+.offcanvas-backdrop{ z-index:1090 !important; }
+/* Bloquea clics del header si el carrito está abierto (si usas el JS que te pasé) */
+.topbar.overlay-open{ pointer-events:none; }
+
+/* Responsivo: orden y respiración sin tocar tamaños de cards */
+@media (max-width:991.98px){
+  .topbar{ padding:.55rem 0; }
+  .search-wrap{ width:100% !important; }
+}
+
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container-fluid px-3 px-md-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-lg-3 d-flex align-items-center">
+        <div class="brand me-3">ANDÉN</div>
+      </div>
+      <div class="col-12 col-lg-5">
+        <nav class="main-nav d-flex gap-1 flex-wrap">
+          <a href="index.html">INICIO</a>
+          <div class="has-mega d-inline-block position-static">
+            <a href="#" class="categories-toggle" aria-expanded="false" aria-haspopup="true">CATEGORÍAS <i class="bi bi-chevron-down chev"></i></a>
+            <div class="mega-menu" role="menu" aria-label="Categorías">
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold">Hombre</h6>
+                    <ul class="list-unstyled m-0">
+                      <li><a href="#playeras" class="text-decoration-none">Playeras</a></li>
+                      <li><a href="#sudaderas" class="text-decoration-none">Sudaderas</a></li>
+                      <li><a href="#denim" class="text-decoration-none">Denim</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold">Mujer</h6>
+                    <ul class="list-unstyled m-0">
+                      <li><a href="mujer.html#vestidos" class="text-decoration-none">Vestidos</a></li>
+                      <li><a href="mujer.html#tops" class="text-decoration-none">Tops</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold">Calzado</h6>
+                    <ul class="list-unstyled m-0">
+                      <li><a href="zapatos.html#sneakers" class="text-decoration-none">Sneakers</a></li>
+                      <li><a href="zapatos.html#running" class="text-decoration-none">Running</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-6 col-lg-3 d-none d-lg-block">
+                    <img class="w-100 rounded" style="height:140px;object-fit:cover"
+                         src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=1200&auto=format&fit=crop" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="active" href="hombre.html">HOMBRE</a>
+        </nav>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="d-flex gap-2 justify-content-lg-end align-items-center flex-wrap">
+          <div class="search-wrap" style="width:260px;">
+            <input placeholder="Buscar..."><i class="bi bi-search"></i>
+          </div>
+          <a class="cart-btn" href="#offcanvasCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+            <i class="bi bi-cart3"></i><span id="cartCount" class="cart-badge d-none">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="py-4">
+  <div class="container">
+    <h1 class="h3 fw-bold mb-3">Hombre</h1>
+    <div class="row g-4">
+      <!-- Producto -->
+      <div id="playeras" class="col-6 col-md-4 col-lg-3">
+        <div class="card p-card">
+          <img src="https://images.stockx.com/images/The-Weeknd-PSG-x-XO-Stadium-Jersey-Navy-Multicolor-v2.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1751574266" class="card-img-top" alt="Playera Tech">
+          <div class="card-body">
+            <h6 class="mb-1">The Weeknd PSG x XO Stadium Jersey</h6>
+            <div class="price">$3215</div>
+            <button class="btn btn-primary btn-sm mt-2 add-cart"
+                    data-id="h1" data-name="PSG x XO" data-price="3215"
+                    data-img="https://images.stockx.com/images/The-Weeknd-PSG-x-XO-Stadium-Jersey-Navy-Multicolor-v2.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1751574266">
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="sudaderas" class="col-6 col-md-4 col-lg-3">
+        <div class="card p-card">
+          <img src="https://images.stockx.com/images/vertical/The-North-Face-1996-Retro-Nuptse-700-Fill-Packable-Jacket-Recycled-Tnf-Black_1.jpg" class="card-img-top" alt="Sudadera Hoodie">
+          <div class="card-body">
+            <h6 class="mb-1">The North Face 1996 Retro Nuptse 700 Fill Packable Jacket</h6>
+            <div class="price">$5299 MXN</div>
+            <button class="btn btn-primary btn-sm mt-2 add-cart"
+                    data-id="h2" data-name="Nuptse 700 Fill Packable" data-price="5299"
+                    data-img="https://images.stockx.com/images/vertical/The-North-Face-1996-Retro-Nuptse-700-Fill-Packable-Jacket-Recycled-Tnf-Black_1.jpg">
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="denim" class="col-6 col-md-4 col-lg-3">
+        <div class="card p-card">
+          <img src="https://images.stockx.com/images/Travis-Scott-Jordan-Cargo-Pant-Black.png?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1634936522" class="card-img-top" alt="Jeans Slim">
+          <div class="card-body">
+            <h6 class="mb-1">Travis Scott Jordan Cargo Pant</h6>
+            <div class="price">$899 MXN</div>
+            <button class="btn btn-primary btn-sm mt-2 add-cart"
+                    data-id="h3" data-name="Scott Jordan Cargo" data-price="899"
+                    data-img="https://images.stockx.com/images/Travis-Scott-Jordan-Cargo-Pant-Black.png?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1634936522">
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /Producto -->
+    </div>
+  </div>
+</main>
+
+<footer class="pt-5 mt-4">
+  <div class="container pb-4">
+    <hr class="border-secondary">
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-white-50">© 2025 ANDÉN</small>
+      <a class="text-white-50" href="carrito.html">Ver carrito</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+  <div id="cartToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex"><div class="toast-body">Producto agregado al carrito ✅</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Carrito (mini-cart) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasCartLabel" class="mb-0">Tu carrito</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <div id="miniCartEmpty" class="text-center text-muted py-4">Tu carrito está vacío</div>
+    <ul id="miniCartItems" class="list-group list-group-flush flex-grow-1"></ul>
+    <div class="mt-3">
+      <div class="d-flex justify-content-between">
+        <strong>Subtotal</strong>
+        <strong id="miniCartSubtotal">$0</strong>
+      </div>
+      <div id="miniCartActions" class="d-grid gap-2 mt-3 d-none">
+        <a href="carrito.html" class="btn btn-primary">Ver carrito</a>
+        <a href="#" class="btn btn-outline-secondary">Finalizar compra</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>
