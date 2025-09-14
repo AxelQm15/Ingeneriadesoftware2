@@ -1,0 +1,18 @@
+/* Estilos suaves y centrados */
+body {
+  background: #f7f7f9;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  min-width: 3rem;
+  justify-content: center;
+}
+
+#resultado {
+  font-weight: 600;
+}

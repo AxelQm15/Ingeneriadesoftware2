@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Práctica 8 — Área de un Círculo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-7 col-lg-5">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h1 class="h3 text-center mb-3">Práctica 8</h1>
+            <p class="text-center text-muted mb-4">Calcular el área de un círculo (A = π · r²)</p>
+
+            <form id="formulario" novalidate>
+              <div class="mb-3">
+                <label for="valorRadio" class="form-label">Ingresa el valor del radio</label>
+                <div class="input-group">
+                  <span class="input-group-text">r</span>
+                  <input
+                    type="number"
+                    id="valorRadio"
+                    name="radio"
+                    class="form-control"
+                    required
+                    step="any"
+                    min="0.0000001"
+                    placeholder="Ej. 12.5"
+                    inputmode="decimal"
+                    aria-describedby="ayudaRadio"
+                  >
+                  <span class="input-group-text">cm</span>
+                  <div class="invalid-feedback">Ingresa un número mayor a 0.</div>
+                </div>
+                <div id="ayudaRadio" class="form-text">Usa punto para decimales (ej. 3.14).</div>
+              </div>
+
+              <div class="d-flex gap-2 mb-3">
+                <button type="submit" class="btn btn-primary flex-fill">Calcular área</button>
+                <button type="button" id="btnLimpiar" class="btn btn-outline-secondary flex-fill">Limpiar</button>
+              </div>
+
+              <div class="mb-1">
+                <label for="resultado" class="form-label">El resultado es:</label>
+                <div class="input-group">
+                  <input type="text" id="resultado" class="form-control" readonly>
+                  <span class="input-group-text">cm²</span>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
