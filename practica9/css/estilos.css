@@ -1,0 +1,15 @@
+/* Pequeño ajuste visual */
+.svg-user-icon {
+  color: #3080e8; /* usa el color secundario del lord-icon para armonizar */
+}
+
+/* Opcional: suaviza los bordes de los inputs al validar */
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: #198754;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc3545;
+}
