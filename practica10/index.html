@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 10</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center my-5">
+                <h1>Colaboradores de album "Hurry Up Tomorrow" by The Weeknd</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- The Weeknd -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="https://cdn-images.dzcdn.net/images/artist/581693b4724a7fcfa754455101e13a44/1900x1900-000000-81-0-0.jpg" 
+                    class="card-img-top" 
+                    alt="The Weeknd">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre1">Card title</h5>
+                        <p>Edad: <span id="edad1"></span></p>
+                        <p>Profesión: <span id="profesion1"></span></p>
+                        <p>Dirección: <span id="direccion1"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies1"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lana Del Rey -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="data:image/jpeg;base64,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" 
+                    class="card-img-top" 
+                    alt="Lana Del Rey">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre2">Card title</h5>
+                        <p>Edad: <span id="edad2"></span></p>
+                        <p>Profesión: <span id="profesion2"></span></p>
+                        <p>Dirección: <span id="direccion2"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies2"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Playboi Carti -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="https://i.discogs.com/DuMzqM4vwPc9gKz68NFLPluoIHuWUQwyGBgBFNE_t_w/rs:fit/g:sm/q:90/h:600/w:480/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTQ2Mzc5/NTEtMTc0MjMxNzA5/Ni03NDI1LmpwZWc.jpeg" 
+                    class="card-img-top" 
+                    alt="Playboi Carti">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre3">Card title</h5>
+                        <p>Edad: <span id="edad3"></span></p>
+                        <p>Profesión: <span id="profesion3"></span></p>
+                        <p>Dirección: <span id="direccion3"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies3"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anitta -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTLkR1qc_DBSdokteYJNMmQm2jamuePHXf0g&s" 
+                    class="card-img-top" 
+                    alt="Anitta">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre4">Card title</h5>
+                        <p>Edad: <span id="edad4"></span></p>
+                        <p>Profesión: <span id="profesion4"></span></p>
+                        <p>Dirección: <span id="direccion4"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies4"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travis Scott -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="https://imageio.forbes.com/specials-images/imageserve/5ed670179e384f0007b7db8f/0x0.jpg?format=jpg&crop=2610,2609,x1032,y186,safe&height=416&width=416&fit=bounds" 
+                    class="card-img-top" 
+                    alt="Travis Scott">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre5">Card title</h5>
+                        <p>Edad: <span id="edad5"></span></p>
+                        <p>Profesión: <span id="profesion5"></span></p>
+                        <p>Dirección: <span id="direccion5"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies5"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Florence Welch -->
+            <div class="col-12 col-md-4">
+               <div class="card" style="width: 18rem;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/FlorenceRAHProms110924_%2868_of_76%29_%2853989416201%29_%28cropped%29.jpg/250px-FlorenceRAHProms110924_%2868_of_76%29_%2853989416201%29_%28cropped%29.jpg" 
+                    class="card-img-top" 
+                    alt="Florence Welch">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombre6">Card title</h5>
+                        <p>Edad: <span id="edad6"></span></p>
+                        <p>Profesión: <span id="profesion6"></span></p>
+                        <p>Dirección: <span id="direccion6"></span></p>
+                        <p>Hobbies:</p>
+                        <ul id="hobbies6"></ul>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script defer src="js/index.js"></script>
+</body>
+</html>
