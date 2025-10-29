@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Dental | Dra. Brenda Parra</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header" id="header">
+        <nav class="nav container">
+            <a href="#inicio" class="nav-logo">Dra. Brenda Parra</a>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero" id="inicio">
+            <div class="hero-container container grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">Tratamientos Dentales</h1>
+                    <p class="hero-description">Odontología de vanguardia con un trato humano y profesional. Agenda tu cita hoy mismo.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="https://plus.unsplash.com/premium_photo-1744085660486-1c8c72cbe23f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470" alt="Consultorio dental moderno de la Dra. Parra">
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="servicios">
+            <div class="container">
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <span class="section-subtitle">Lo que hacemos por tu sonrisa</span>
+
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <img src="IMG/ICONOS.png" alt="Icono de Tratamientos Dentales" class="service-icon-img">
+                        <h3>Tratamientos Dentales</h3>
+                        <a href="SERVICIOS/TRATAMIENTOS.HTML" class="button button-primary">Mas Información</a>
+                    </div>
+                    <div class="service-card reveal">
+                        <img src="IMG/PROTESIS.png" alt="Icono de Prótesis e Implantes" class="service-icon-img">
+                        <h3>Prótesis e Implantes</h3>
+                        <a href="SERVICIOS/PROTESIS.HTML" class="button button-primary">Mas Información</a>
+                    </div>
+                    <div class="service-card reveal">
+                        <img src="IMG/ORTODONCIA.png" alt="Icono de Ortodoncia y Odontopetría" class="service-icon-img">
+                        <h3>Ortodoncia y Odontopetría</h3>
+                        <a href="SERVICIOS/ORTODONCIA.HTML" class="button button-primary">Mas Información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="sobre-mi">
+            <div class="container grid-alt">
+                <div class="about-image reveal">
+                    <img src="IMG/BRENDAP.jpg" alt="Retrato profesional Dra. Brenda Parra">
+                </div>
+                <div class="about-content reveal">
+                    <h2 class="section-title">Conoce a la Dra. Brenda Parra</h2>
+                    <span class="section-subtitle">Pasión y profesionalismo</span>
+                    <p>Soy Cirujana Dentista, mi compromiso es brindarte la mejor atención y ayudarte a conseguir una sonrisa saludable en un ambiente de confianza. Mi objetivo es que te sientas cómodo y seguro en cada visita.</p>
+                    <ul>
+                        <li><i class='bx bx-check-circle'></i> Cirujana Dentista CÉD. 13469415 </li>
+                        <li><i class='bx bx-check-circle'></i> Egresada de Universidad de La Salle Bajío</li>
+                        <li><i class='bx bx-check-circle'></i> Actualización constante en técnicas de vanguardia</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta section">
+            <div class="cta-container container reveal">
+                <h2>¿List@ para transformar tu sonrisa?</h2>
+                <p>Nuestro equipo está listo para atenderte. Contáctanos y da el primer paso.</p>
+                <a href="#contacto" class="button button-secondary">Agendar una Cita Ahora</a>
+            </div>
+        </section>
+
+        <section class="section" id="contacto">
+            <div class="container">
+                <h2 class="section-title">Contacto</h2>
+                <span class="section-subtitle">Agenda tu valoración</span>
+                
+                <div class="contact-grid">
+                    <form class="contact-form reveal">
+                        <input type="text" placeholder="Nombre" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea placeholder="Tu mensaje" rows="6"></textarea>
+                        <button type="submit" class="button button-primary">Enviar Mensaje</button>
+                    </form>
+                    
+                    <div class="contact-info reveal">
+                        <h3>Información de la Clínica</h3>
+                        <p><i class='bx bxs-map'></i> LLUVIA 302 JARDINES DEL MORAL, LEON, GUANAJUATO 37160</p>
+                        <p><i class='bx bxs-phone'></i> 477-153-6564 </p>
+                        <p><i class='bx bxs-envelope'></i> odontologiaintegral.brenda@gmail.com</p>
+                        
+                        <div class="contact-hours">
+                            <p><i class='bx bxs-time-five'></i> <strong>Horario de Atención</strong></p>
+                            <ul class="hours-list">
+                                <li>
+                                    <span>Lun - Vie</span>
+                                    <span>09:00 - 19:00</span>
+                                </li>
+                                <li>
+                                    <span>Sábado</span>
+                                    <span>10:00 - 14:00</span>
+                                </li>
+                                <li>
+                                    <span>Domingo</span>
+                                    <span>Cerrado</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> </div> </section> <section class="map-full-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.908480398711!2d-101.6905026257321!3d21.15603708307484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bc0043130d2a5%3A0x627361c4b6933c04!2sLluvia%20302%2C%20Jardines%20del%20Moral%2C%2037160%20Le%C3%B3n%20de%20los%20Aldama%2C%20Gto.!5e0!3m2!1ses-419!2smx!4v1730176295537!5m2!1ses-419!2smx" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container container">
+            <p>© 2025 Dra. Brenda Parra. Todos los derechos reservados.</p>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/dra.brendaparra/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram'></i></a>
+                <a href="#" title="Próximamente en Facebook"><i class='bx bxl-facebook-square'></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+
+    <a href="https://wa.me/524771536564" class="whatsapp-fab" target="_blank" aria-label="Chatear por WhatsApp">
+        <i class='bx bxl-whatsapp'></i>
+    </a>
+    
+    <a href="#inicio" class="back-to-top-fab" aria-label="Volver arriba">
+        <i class='bx bx-chevrons-up'></i>
+    </a>
+
+</body> 
+</html>
