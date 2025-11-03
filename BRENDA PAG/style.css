@@ -1,5 +1,6 @@
 /* =========================================
    VERSIÓN ELEGANTE FINAL (CSS COMPLETO)
+   CON FORMULARIO WHATSAPP Y LOGO CORREGIDO
    ========================================= */
 
 /* ----- VARIABLES CSS ----- */
@@ -21,7 +22,7 @@
     --font-cuerpo: 'Lato', sans-serif;
 
     /* Extras */
-    --header-height: 3.5rem;
+    --header-height: 6rem; /* Header más alto */
     --max-width: 1200px;
     --border-radius-soft: 12px;
     --shadow-light: 0 6px 15px rgba(0,0,0,0.04);
@@ -172,23 +173,41 @@ body.home .site-header {
     align-items: center;
 }
 
-/* Logo */
+/* Logo (Contenedor del enlace) */
 .nav-logo {
-    font-family: var(--font-titulos); 
-    font-size: 1.6rem;
-    font-weight: 700;
-    /* Color inicial por defecto (páginas internas) */
-    color: var(--color-primario); /* Teal */
-    transition: color 0.4s ease;
+    display: inline-block;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    margin-right: auto; 
+    margin-left: -2rem; /* Lo mueve más a la izquierda */
 }
+
+/* Lógica de color del Logo */
+.logo-img {
+    height: 5rem;  /* Logo grande */
+    width: auto;   
+    display: block; 
+    transition: filter 0.4s ease, opacity 0.4s ease;
+    /* Filtro por defecto (para páginas internas sobre fondo BEIGE):
+       Se muestra el logo original (verde/teal).
+    */
+    filter: none; 
+}
+
 /* Color inicial ESPECÍFICO para homepage (sobre Hero) */
-body.home .site-header:not(.scrolled) .nav-logo {
-    color: var(--color-blanco); /* Blanco */
+body.home .site-header:not(.scrolled) .logo-img {
+    /* Hacemos el logo BLANCO */
+    filter: brightness(0) invert(1);
+    opacity: 1; 
 }
 /* Color al HACER SCROLL (común) */
-.site-header.scrolled .nav-logo {
-    color: var(--color-primario); /* Teal */
+.site-header.scrolled .logo-img {
+     /* Vuelve al estado SIN FILTRO (verde/teal) */
+    filter: none; 
+    opacity: 1;
 }
+
 
 /* Lista de enlaces */
 .nav-list {
@@ -264,12 +283,12 @@ body.home .site-header:not(.scrolled) .nav-toggle {
 
 /* ----- HERO ----- */
 .hero {
-    padding-top: calc(var(--header-height) + 5rem);
+    padding-top: calc(var(--header-height) + 4rem);
     padding-bottom: 5rem;
     position: relative;
     overflow: hidden;
     min-height: 80vh;
-    background-image: url('https://images.unsplash.com/photo-1606811856475-5e6fcdc6e509?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=736');
+    background-image: url('https://images.unsplash.com/photo-1643660527072-47bd5735f721?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -437,7 +456,8 @@ body.home .site-header:not(.scrolled) .nav-toggle {
     gap: 3rem;
 }
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select { /* --- AÑADIDO: select --- */
     width: 100%;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -448,7 +468,8 @@ body.home .site-header:not(.scrolled) .nav-toggle {
     transition: var(--transition-fast);
 }
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form select:focus { /* --- AÑADIDO: select:focus --- */
     outline: none;
     border-color: var(--color-primario);
     box-shadow: 0 0 0 3px var(--color-secundario);
@@ -459,6 +480,42 @@ body.home .site-header:not(.scrolled) .nav-toggle {
 .contact-form .button {
     width: 100%;
 }
+
+/* --- NUEVO: Estilos para Formulario WhatsApp --- */
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: var(--color-texto);
+    font-size: 0.95rem;
+}
+.contact-form select {
+    background-color: var(--color-blanco);
+    color: var(--color-texto-sec);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236B9A94%22%20d%3D%22M287%2069.4a17.6%2017.6%0%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+}
+#send-whatsapp-btn {
+    width: 100%;
+    background: #25D366; /* Color WhatsApp */
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+#send-whatsapp-btn:hover {
+    background: #20b859; /* Color WhatsApp hover */
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+#send-whatsapp-btn i {
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 1.2rem;
+}
+/* --- FIN NUEVOS ESTILOS --- */
+
 
 .contact-info h3 {
     font-size: 1.6rem;
@@ -537,7 +594,7 @@ body.home .site-header:not(.scrolled) .nav-toggle {
     align-items: center;
 }
 .footer-socials a {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: var(--color-texto-sec);
     margin-left: 1rem;
     transition: var(--transition-fast);
@@ -561,7 +618,7 @@ body.home .site-header:not(.scrolled) .nav-toggle {
 
 /* ----- ESTILOS PÁGINAS INTERNAS ----- */
 .page-hero {
-    padding-top: calc(var(--header-height) + 4rem); 
+    padding-top: calc(var(--header-height) + 3rem); 
     padding-bottom: 4rem;
     background-color: var(--color-secundario); 
     text-align: center;
@@ -586,11 +643,17 @@ body.home .site-header:not(.scrolled) .nav-toggle {
 }
 .treatment-content p {
     margin-bottom: 1rem;
+    text-align: justify; /* --- Texto justificado --- */
 }
+
 .treatment-image img {
     border-radius: var(--border-radius-soft);
     box-shadow: var(--shadow-light);
+    width: 100%; 
+    height: 350px; /* --- Altura de imagen fija --- */
+    object-fit: cover; 
 }
+
 .treatment-button {
     margin-top: 1.5rem; 
 }
@@ -712,6 +775,10 @@ body.home .site-header:not(.scrolled) .nav-toggle {
 
 /* --- Para Móviles (<= 768px) --- */
 @media (max-width: 768px) {
+    :root {
+        --header-height: 4.5rem;
+    }
+    
     body {
         font-size: 0.95rem;
     }
@@ -759,6 +826,13 @@ body.home .site-header:not(.scrolled) .nav-toggle {
     }
     .nav-link:hover {
         background-color: var(--color-secundario);
+    }
+
+    .logo-img {
+        height: 3.5rem; 
+    }
+    .nav-logo {
+        margin-left: -1rem; 
     }
 
     .hero {
@@ -817,8 +891,6 @@ body.home .site-header:not(.scrolled) .nav-toggle {
         font-size: 28px;
     }
     .back-to-top-fab {
-        /* Opcional: Ocultarlo o moverlo si molesta */
-         /* display: none; */
          bottom: 20px;
          left: 20px;
          width: 45px;
@@ -838,3 +910,14 @@ body.home .site-header:not(.scrolled) .nav-toggle {
         padding: 0.75rem 1.25rem;
     }
 }
+
+/* --- Justificación de Textos en Secciones de Tratamiento --- */
+
+/* Aplica justificación a todos los párrafos dentro de los bloques de contenido de tratamiento */
+.treatment-content p {
+    text-align: justify;
+}
+
+/* Si en algún momento necesitas sobreescribir esta justificación para un caso específico
+   (por ejemplo, si tienes un párrafo que prefieres centrar o alinear a la izquierda),
+   puedes hacerlo con una regla más específica después de esta. */

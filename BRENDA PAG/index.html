@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es" class="home"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica Dental | Dra. Brenda Parra</title>
@@ -13,11 +12,11 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-    <header class="site-header" id="header">
+<body class="home"> <header class="site-header" id="header">
         <nav class="nav container">
-            <a href="#inicio" class="nav-logo">Dra. Brenda Parra</a>
+            <a href="#inicio" class="nav-logo">
+                <img src="IMG/LogoDorado.png" alt="Dra. Brenda Parra - Logo" class="logo-img">
+            </a>
 
             <div class="nav-menu" id="nav-menu">
                 <ul class="nav-list">
@@ -41,9 +40,7 @@
                 <div class="hero-content">
                     <h1 class="hero-title">Tratamientos Dentales</h1>
                     <p class="hero-description">Odontología de vanguardia con un trato humano y profesional. Agenda tu cita hoy mismo.</p>
-                </div>
-                <div class="hero-image">
-                    <img src="https://plus.unsplash.com/premium_photo-1744085660486-1c8c72cbe23f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470" alt="Consultorio dental moderno de la Dra. Parra">
+                    <a href="#contacto" class="button button-primary">Agendar Cita</a>
                 </div>
             </div>
         </section>
@@ -93,8 +90,8 @@
 
         <section class="cta section">
             <div class="cta-container container reveal">
-                <h2>¿List@ para transformar tu sonrisa?</h2>
-                <p>Nuestro equipo está listo para atenderte. Contáctanos y da el primer paso.</p>
+                <h2>¿Qué esperas para transformar tu sonrisa?</h2>
+                <p>La Dra Brenda estará lista para atenderte. Contáctanos y da el primer paso.</p>
                 <a href="#contacto" class="button button-secondary">Agendar una Cita Ahora</a>
             </div>
         </section>
@@ -105,11 +102,27 @@
                 <span class="section-subtitle">Agenda tu valoración</span>
                 
                 <div class="contact-grid">
-                    <form class="contact-form reveal">
-                        <input type="text" placeholder="Nombre" required>
-                        <input type="email" placeholder="Email" required>
-                        <textarea placeholder="Tu mensaje" rows="6"></textarea>
-                        <button type="submit" class="button button-primary">Enviar Mensaje</button>
+                    
+                    <form class="contact-form reveal" id="whatsapp-form">
+                        
+                        <label for="wa_name">Tu Nombre:</label>
+                        <input type="text" id="wa_name" placeholder="Escribe tu nombre" required>
+                        
+                        <label for="wa_service">Servicio de Interés:</label>
+                        <select id="wa_service">
+                            <option value="Valoración General">Valoración General</option>
+                            <option value="Tratamientos Dentales">Tratamientos Dentales</option>
+                            <option value="Prótesis e Implantes">Prótesis e Implantes</option>
+                            <option value="Ortodoncia y Odontopediatría">Ortodoncia y Odontopediatría</option>
+                            <option value="Otro">Otro (Escribir abajo)</option>
+                        </select>
+                        
+                        <label for="wa_message">Mensaje Adicional (Opcional):</label>
+                        <textarea id="wa_message" placeholder="¿Tienes alguna duda o prefieres un horario?" rows="4"></textarea>
+                        
+                        <button type="button" id="send-whatsapp-btn" class="button button-primary">
+                            <i class='bx bxl-whatsapp'></i> Enviar por WhatsApp
+                        </button>
                     </form>
                     
                     <div class="contact-info reveal">
