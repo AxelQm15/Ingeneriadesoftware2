@@ -1,0 +1,228 @@
+/* Variables CSS para fácil manejo de colores */
+:root {
+    --color-principal: #1E1E1E;     /* Negro Profundo */
+    --color-secundario: #FF6F00;    /* Verde Turquesa (Acento principal) */
+    --color-fondo: #FFFFFF;         /* Blanco Brillante */
+    --color-texto: #1E1E1E;         /* Negro para el cuerpo */
+    --color-acento: #FF6F00;        /* Naranja Vibrante (Acento secundario) */
+    --sombra-card: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+    min-width: 320px; /* Previene problemas de desbordamiento en móviles muy pequeños */
+}
+
+/* --- Encabezado --- */
+#main-header {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#main-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em; /* Reducción ligera para móvil */
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+}
+
+#main-header p {
+    font-size: 1em;
+    color: #FF6F00(--color-secundario);
+}
+
+/* --- Navegación (Pestañas) --- */
+#menu-nav {
+    display: flex;
+    justify-content: flex-start; /* Alineación a la izquierda */
+    overflow-x: auto; /* Permite desplazamiento horizontal en caso de muchos botones */
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 5px; /* Menos padding */
+    background-color: white;
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button {
+    flex-shrink: 0; /* Evita que los botones se encojan */
+    background: none;
+    border: 2px solid var(--color-principal);
+    color: var(--color-principal);
+    padding: 8px 15px; /* Padding más pequeño para móvil */
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s ease-out;
+    text-transform: uppercase;
+    font-size: 0.9em; /* Fuente más pequeña para que quepan más */
+}
+
+.nav-button:hover {
+    background-color: var(--color-principal);
+    color: white;
+    transform: scale(1.03);
+    box-shadow: #FF6F00;
+}
+
+.nav-button.active {
+    background-color: #FF6F00(--color-secundario);
+    border-color: #FF6F00(--color-secundario);
+    color: var(--color-principal);
+    box-shadow: var(--sombra-card);
+    transform: scale(1);
+}
+
+/* --- Contenedor del Menú --- */
+#menu-container {
+    padding: 15px; /* Menos padding en los bordes */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Estilo de la Sección de Categoría --- */
+.menu-section {
+    margin-bottom: 25px; /* Menos espacio entre secciones */
+    border-radius: 8px;
+    padding: 15px;
+    background-color: var(--color-fondo);
+    box-shadow: var(--sombra-card);
+    display: none; 
+}
+
+/* Animación Suave (Keyframe se mantiene igual) */
+.menu-section.is-active {
+    display: block;
+    animation: fadeInSlide 0.4s ease-out forwards;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-acento);
+    font-size: 1.8em; /* Tamaño de título optimizado para móvil */
+    border-bottom: 3px solid var(--color-secundario);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* --- Estilo de la Tarjeta del Producto --- */
+.menu-item {
+    /* Permitimos que la descripción y el precio se envuelvan si el espacio es limitado */
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px dashed #cccccc;
+    opacity: 0; 
+    transform: translateY(10px); 
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out; 
+}
+
+.menu-item.animate-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.item-details {
+    flex-grow: 1;
+    margin-right: 0; /* Eliminamos el margen derecho */
+    width: 100%; /* Ocupa todo el ancho */
+}
+
+.item-name {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--color-principal);
+    display: block;
+}
+
+.item-description {
+    font-size: 0.85em; /* Fuente más pequeña para descripciones largas */
+    color: #666; /* Un gris más suave para la descripción */
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    /* Separamos el precio del nombre y lo hacemos un bloque para móvil */
+    font-weight: 700;
+    font-size: 1.1em; 
+    color: var(--color-secundario);
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: rgba(204, 204, 204, 0.3);
+    text-align: right;
+    align-self: flex-end; /* Alinea el precio a la derecha en modo columna */
+}
+
+/* --- Pie de Página --- */
+#main-footer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--color-principal);
+    color: white;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+/* ========================================================= */
+/* === AJUSTES PARA PANTALLAS GRANDES (TABLETS Y ESCRITORIO) === */
+/* ========================================================= */
+@media (min-width: 768px) {
+    
+    /* Restaurar el diseño de 2 columnas para el producto en pantallas más grandes */
+    .menu-item {
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .item-details {
+        margin-right: 15px;
+        width: auto;
+    }
+    
+    .item-price {
+        font-size: 1.2em;
+        align-self: auto;
+    }
+    
+    /* Restaurar tamaños de fuente más grandes */
+    #main-header h1 {
+        font-size: 2.8em;
+    }
+    
+    .menu-section h2 {
+        font-size: 2em;
+    }
+    
+    #menu-container {
+        padding: 20px;
+    }
+}
