@@ -446,6 +446,17 @@ body {
   padding-left: 1.2rem;
   color: var(--gris);
 }
+/* tarjeta ancha solo en pantallas grandes */
+.feature-card-wide {
+  grid-column: span 2;
+}
+
+/* en tablet y móvil que se comporte como tarjeta normal */
+@media (max-width: 900px) {
+  .feature-card-wide {
+    grid-column: auto;
+  }
+}
 
 /* ===========================================================
    PROCESO POLIECROM – DIAGRAMA MODERNO
@@ -837,12 +848,32 @@ body {
     align-items: stretch;
   }
 
+  /* --- FIX DESFASE TARJETAS DEL HERO EN CELULAR --- */
   .hero-visual {
-    transform: scale(0.9);
+    order: 2;
+    margin-top: 1.8rem;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
   }
 
+  .hero-orbit {
+    display: none; /* quitamos el círculo de luz en mobile */
+  }
+
+  .hero-card {
+    position: static;        /* ya no flotan */
+    width: 100%;
+    margin: 0;
+    transform: none;
+  }
+
+  /* ----------------------------------------------- */
+
   .brand-logo {
-    height: 110px; /* un poco más chico en teléfonos */
+    height: 110px;
   }
 
   .contact-form {
